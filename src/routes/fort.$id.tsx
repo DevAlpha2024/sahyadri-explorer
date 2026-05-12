@@ -262,3 +262,174 @@ function Mini({ icon, label, v }: { icon: React.ReactNode; label: string; v: str
     </div>
   );
 }
+
+type TrekRoute = {
+  id: string;
+  name: string;
+  type: string;
+  difficulty: string;
+  distanceKm: number;
+  hours: number;
+  startVillage: string;
+  exitGate: string;
+  elevationGainM: number;
+  tag: "primary" | "alt";
+  waypoints: { title: string; detail: string }[];
+};
+
+const TREK_ROUTES: TrekRoute[] = [
+  {
+    id: "route_sinhagad_01",
+    name: "Donje (Paytha) Trek",
+    type: "Primary Trek",
+    difficulty: "Easy to Moderate",
+    distanceKm: 2.6,
+    hours: 2.0,
+    startVillage: "Donje Village",
+    exitGate: "Pune Darwaza",
+    elevationGainM: 720,
+    tag: "primary",
+    waypoints: [
+      { title: "Paytha parking", detail: "Start at Sinhagad Paytha parking near Donje village. Fill water — last reliable source." },
+      { title: "Forest checkpost", detail: "Pass the Forest Department checkpost. Trail begins as a wide dirt path through scrub." },
+      { title: "Steep rock section", detail: "Continuous steep rocky climb — the hardest 25 minutes. Use trekking poles in monsoon." },
+      { title: "Midway plateau", detail: "Catch your breath. Local vendors sell lime water, kokum and cucumbers." },
+      { title: "Rock-cut steps", detail: "Final ascent over hand-cut stone steps along the cliff edge." },
+      { title: "Pune Darwaza", detail: "Arrive at the massive northeast gate. You're on the fort." },
+    ],
+  },
+  {
+    id: "route_sinhagad_02",
+    name: "Kalyan Village Trek",
+    type: "Alternative Trek",
+    difficulty: "Moderate",
+    distanceKm: 3.2,
+    hours: 2.5,
+    startVillage: "Kalyan Village",
+    exitGate: "Kalyan Darwaza",
+    elevationGainM: 760,
+    tag: "alt",
+    waypoints: [
+      { title: "Kalyan parking", detail: "Park at Kalyan village. Look for the unmarked trail up the southeastern ridge." },
+      { title: "Narrow ridge path", detail: "Quiet, uneven rocky path — much less crowded than Donje route." },
+      { title: "Dense forest cover", detail: "Pass through thick tree cover before the path opens to the bare hill face." },
+      { title: "Open hill face", detail: "Steep exposed climb. Watch footing — loose scree in dry season." },
+      { title: "Kalyan Darwaza", detail: "Arrive at the historic southeast gateway, used to signal Raigad." },
+    ],
+  },
+];
+
+function RoutesTab() {
+  const [activeId, setActiveId] = useState(TREK_ROUTES[0].id);
+  const route = TREK_ROUTES.find((r) => r.id === activeId)!;
+
+  return (
+    <div className="space-y-4">
+      {/* Route selector chips */}
+      <div className="flex gap-2 overflow-x-auto -mx-4 px-4 pb-1">
+        {TREK_ROUTES.map((r) => {
+          const active = r.id === activeId;
+          return (
+            <button
+              key={r.id}
+              onClick={() => setActiveId(r.id)}
+              className={`shrink-0 rounded-2xl border p-3 text-left min-w-[180px] transition ${
+                active ? "border-primary bg-primary/5 shadow-soft" : "border-border bg-card"
+              }`}
+            >
+              <div className="flex items-center gap-1.5">
+                <RouteIcon className={`size-3.5 ${active ? "text-primary" : "text-muted-foreground"}`} />
+                <span className="text-[10px] uppercase tracking-wider text-muted-foreground">{r.type}</span>
+              </div>
+              <div className="font-display text-sm font-semibold mt-1">{r.name}</div>
+              <div className="text-[11px] text-muted-foreground mt-0.5">
+                {r.distanceKm} km · {r.hours}h · {r.difficulty}
+              </div>
+            </button>
+          );
+        })}
+      </div>
+
+      {/* Route summary */}
+      <div className="rounded-2xl border border-border bg-card p-4">
+        <div className="flex items-center justify-between">
+          <div>
+            <div className="text-[10px] uppercase tracking-widest text-accent">Start → Exit</div>
+            <div className="font-display text-base font-semibold mt-1 flex items-center gap-1.5">
+              {route.startVillage}
+              <ChevronRight className="size-4 text-muted-foreground" />
+              {route.exitGate}
+            </div>
+          </div>
+          <button className="rounded-full bg-primary text-primary-foreground px-3 py-1.5 text-xs font-semibold inline-flex items-center gap-1">
+            <Navigation className="size-3.5" /> Start
+          </button>
+        </div>
+
+        <div className="mt-4 grid grid-cols-3 gap-2 text-center">
+          <div className="rounded-xl bg-secondary/60 p-2">
+            <Footprints className="size-4 mx-auto text-primary" />
+            <div className="text-[10px] uppercase tracking-wider text-muted-foreground mt-1">Distance</div>
+            <div className="text-sm font-semibold">{route.distanceKm} km</div>
+          </div>
+          <div className="rounded-xl bg-secondary/60 p-2">
+            <Clock className="size-4 mx-auto text-primary" />
+            <div className="text-[10px] uppercase tracking-wider text-muted-foreground mt-1">Time</div>
+            <div className="text-sm font-semibold">{route.hours}h</div>
+          </div>
+          <div className="rounded-xl bg-secondary/60 p-2">
+            <Mountain className="size-4 mx-auto text-primary" />
+            <div className="text-[10px] uppercase tracking-wider text-muted-foreground mt-1">Gain</div>
+            <div className="text-sm font-semibold">{route.elevationGainM} m</div>
+          </div>
+        </div>
+      </div>
+
+      {/* Step-by-step waypoints */}
+      <div className="rounded-2xl border border-border bg-card p-4">
+        <div className="flex items-center justify-between mb-3">
+          <h3 className="font-display text-base font-semibold">Step-by-step</h3>
+          <span className="text-[11px] text-muted-foreground">{route.waypoints.length} waypoints</span>
+        </div>
+
+        <ol className="relative">
+          {route.waypoints.map((w, i) => {
+            const isStart = i === 0;
+            const isEnd = i === route.waypoints.length - 1;
+            return (
+              <li key={i} className="relative pl-10 pb-5 last:pb-0">
+                {/* connector line */}
+                {!isEnd && (
+                  <span className="absolute left-[14px] top-7 bottom-0 w-px bg-border" />
+                )}
+                {/* node */}
+                <span
+                  className={`absolute left-0 top-0.5 size-7 rounded-full grid place-items-center text-[11px] font-semibold ${
+                    isStart
+                      ? "bg-primary text-primary-foreground"
+                      : isEnd
+                      ? "bg-accent text-accent-foreground"
+                      : "bg-secondary text-foreground border border-border"
+                  }`}
+                >
+                  {isStart ? <Footprints className="size-3.5" /> : isEnd ? <Flag className="size-3.5" /> : i + 1}
+                </span>
+                <div className="text-sm font-semibold leading-snug">{w.title}</div>
+                <div className="text-xs text-muted-foreground mt-1 leading-relaxed">{w.detail}</div>
+              </li>
+            );
+          })}
+        </ol>
+      </div>
+
+      <div className="rounded-2xl border border-border bg-secondary/40 p-4 flex items-center gap-3">
+        <Download className="size-4 text-primary shrink-0" />
+        <div className="flex-1">
+          <div className="text-sm font-semibold">Offline GPX track</div>
+          <div className="text-[11px] text-muted-foreground">Cached on device · works in airplane mode</div>
+        </div>
+        <button className="text-xs font-semibold text-primary">Export</button>
+      </div>
+    </div>
+  );
+}
