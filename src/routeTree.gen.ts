@@ -9,38 +9,148 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as TrackRouteImport } from './routes/track'
+import { Route as SosRouteImport } from './routes/sos'
+import { Route as ProfileRouteImport } from './routes/profile'
+import { Route as MapRouteImport } from './routes/map'
+import { Route as CompassRouteImport } from './routes/compass'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as FortIdRouteImport } from './routes/fort.$id'
 
+const TrackRoute = TrackRouteImport.update({
+  id: '/track',
+  path: '/track',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SosRoute = SosRouteImport.update({
+  id: '/sos',
+  path: '/sos',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProfileRoute = ProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MapRoute = MapRouteImport.update({
+  id: '/map',
+  path: '/map',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CompassRoute = CompassRouteImport.update({
+  id: '/compass',
+  path: '/compass',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const FortIdRoute = FortIdRouteImport.update({
+  id: '/fort/$id',
+  path: '/fort/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/compass': typeof CompassRoute
+  '/map': typeof MapRoute
+  '/profile': typeof ProfileRoute
+  '/sos': typeof SosRoute
+  '/track': typeof TrackRoute
+  '/fort/$id': typeof FortIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/compass': typeof CompassRoute
+  '/map': typeof MapRoute
+  '/profile': typeof ProfileRoute
+  '/sos': typeof SosRoute
+  '/track': typeof TrackRoute
+  '/fort/$id': typeof FortIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/compass': typeof CompassRoute
+  '/map': typeof MapRoute
+  '/profile': typeof ProfileRoute
+  '/sos': typeof SosRoute
+  '/track': typeof TrackRoute
+  '/fort/$id': typeof FortIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/compass'
+    | '/map'
+    | '/profile'
+    | '/sos'
+    | '/track'
+    | '/fort/$id'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/compass' | '/map' | '/profile' | '/sos' | '/track' | '/fort/$id'
+  id:
+    | '__root__'
+    | '/'
+    | '/compass'
+    | '/map'
+    | '/profile'
+    | '/sos'
+    | '/track'
+    | '/fort/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  CompassRoute: typeof CompassRoute
+  MapRoute: typeof MapRoute
+  ProfileRoute: typeof ProfileRoute
+  SosRoute: typeof SosRoute
+  TrackRoute: typeof TrackRoute
+  FortIdRoute: typeof FortIdRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/track': {
+      id: '/track'
+      path: '/track'
+      fullPath: '/track'
+      preLoaderRoute: typeof TrackRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sos': {
+      id: '/sos'
+      path: '/sos'
+      fullPath: '/sos'
+      preLoaderRoute: typeof SosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/profile': {
+      id: '/profile'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof ProfileRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/map': {
+      id: '/map'
+      path: '/map'
+      fullPath: '/map'
+      preLoaderRoute: typeof MapRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/compass': {
+      id: '/compass'
+      path: '/compass'
+      fullPath: '/compass'
+      preLoaderRoute: typeof CompassRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -48,11 +158,24 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/fort/$id': {
+      id: '/fort/$id'
+      path: '/fort/$id'
+      fullPath: '/fort/$id'
+      preLoaderRoute: typeof FortIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  CompassRoute: CompassRoute,
+  MapRoute: MapRoute,
+  ProfileRoute: ProfileRoute,
+  SosRoute: SosRoute,
+  TrackRoute: TrackRoute,
+  FortIdRoute: FortIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
