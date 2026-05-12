@@ -8,7 +8,7 @@ export const Route = createFileRoute("/fort/$id")({
   component: FortScreen,
 });
 
-const tabs = ["Overview", "History", "Spots", "Weather"] as const;
+const tabs = ["Overview", "Routes", "History", "Spots", "Weather"] as const;
 type Tab = typeof tabs[number];
 
 function FortScreen() {
