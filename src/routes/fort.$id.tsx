@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { AppHeader } from "@/components/AppHeader";
 import heroImg from "@/assets/sinhagad-hero.jpg";
 import { useState } from "react";
-import { Play, Headphones, MapPin, Clock, TrendingUp, CloudSun, Sunrise, Sunset, Languages, Download, Share2, Heart, Droplet, DoorOpen, Eye } from "lucide-react";
+import { Play, Headphones, MapPin, Clock, TrendingUp, CloudSun, Sunrise, Sunset, Languages, Download, Share2, Heart, Droplet, DoorOpen, Eye, Route as RouteIcon, Footprints, Flag, ChevronRight, Mountain, Navigation } from "lucide-react";
 
 export const Route = createFileRoute("/fort/$id")({
   component: FortScreen,
