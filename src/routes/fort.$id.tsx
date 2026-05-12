@@ -82,6 +82,7 @@ function FortScreen() {
 
       <div className="px-4 py-5 pb-8">
         {tab === "Overview" && <Overview />}
+        {tab === "Routes" && <RoutesTab />}
         {tab === "History" && <History lang={lang} />}
         {tab === "Spots" && <Spots />}
         {tab === "Weather" && <Weather />}
