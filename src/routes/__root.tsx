@@ -108,12 +108,19 @@ function RootShell({ children }: { children: React.ReactNode }) {
   );
 }
 
+import { BottomNav } from "@/components/BottomNav";
+
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
 
   return (
     <QueryClientProvider client={queryClient}>
-      <Outlet />
+      <div className="mx-auto flex min-h-dvh max-w-[480px] flex-col bg-background shadow-2xl">
+        <main className="flex-1 flex flex-col">
+          <Outlet />
+        </main>
+        <BottomNav />
+      </div>
     </QueryClientProvider>
   );
 }
