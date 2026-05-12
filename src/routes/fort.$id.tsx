@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { AppHeader } from "@/components/AppHeader";
 import heroImg from "@/assets/sinhagad-hero.jpg";
 import { useState } from "react";
-import { Play, Headphones, MapPin, Clock, TrendingUp, CloudSun, Sunrise, Sunset, Languages, Download, Share2, Heart, Droplet, DoorOpen, Eye, Route as RouteIcon, Footprints, Flag, ChevronRight, Mountain, Navigation } from "lucide-react";
+import { Play, Headphones, MapPin, Clock, TrendingUp, CloudSun, Sunrise, Sunset, Languages, Download, Share2, Heart, Droplet, DoorOpen, Eye, Route as RouteIcon, Footprints, Flag, ChevronRight, Mountain, Navigation, Quote, Signal, Ticket, ParkingSquare, Calendar, Landmark, Castle, ArrowRight, BookOpen } from "lucide-react";
 
 export const Route = createFileRoute("/fort/$id")({
   component: FortScreen,
@@ -94,6 +94,7 @@ function FortScreen() {
 function Overview() {
   return (
     <div className="space-y-4">
+      {/* Pace card */}
       <div className="rounded-2xl border border-border bg-card p-4">
         <div className="text-[10px] uppercase tracking-widest text-accent">At your pace</div>
         <div className="mt-1 flex items-baseline gap-2">
@@ -106,19 +107,47 @@ function Overview() {
         <div className="mt-1.5 text-[11px] text-muted-foreground">Calibrated from your last 4 treks</div>
       </div>
 
-      <div className="grid grid-cols-3 gap-3">
-        <Mini icon={<DoorOpen className="size-4 text-primary" />} label="Entry" v="Pune Darwaza" />
-        <Mini icon={<DoorOpen className="size-4 text-destructive" />} label="Exit" v="Kalyan Darwaza" />
-        <Mini icon={<Droplet className="size-4 text-blue-500" />} label="Water" v="3 cisterns" />
-      </div>
-
-      <div className="rounded-2xl border border-border bg-card p-4">
-        <h3 className="font-display text-base font-semibold">Why go</h3>
-        <p className="text-sm text-muted-foreground mt-1.5 leading-relaxed">
-          The hill of the lion. A fort of cliffs, courage and the legend of Tanaji Malusare. Best in monsoon, magical at sunrise from Devtake point.
+      {/* Famous quote */}
+      <div className="rounded-2xl border border-accent/30 bg-accent/5 p-4">
+        <Quote className="size-4 text-accent" />
+        <p className="font-display text-base italic mt-2 leading-snug">
+          "गड आला, पण सिंह गेला"
+        </p>
+        <p className="text-[11px] text-muted-foreground mt-1">
+          The fort is won, but the lion is lost. — Shivaji Maharaj on Tanaji's death
         </p>
       </div>
 
+      {/* Quick stats */}
+      <div className="grid grid-cols-3 gap-3">
+        <Mini icon={<Mountain className="size-4 text-primary" />} label="Elevation" v="1,316 m" />
+        <Mini icon={<Castle className="size-4 text-primary" />} label="Original" v="Kondhana" />
+        <Mini icon={<Droplet className="size-4 text-blue-500" />} label="Cisterns" v="2 listed" />
+      </div>
+
+      {/* Visitor info */}
+      <div className="rounded-2xl border border-border bg-card p-4">
+        <h3 className="font-display text-base font-semibold mb-3">Visitor info</h3>
+        <div className="grid grid-cols-2 gap-3 text-xs">
+          <InfoRow icon={<Clock className="size-3.5" />} label="Timings" v="06:00 – 18:00" />
+          <InfoRow icon={<Ticket className="size-3.5" />} label="Entry" v="Free" />
+          <InfoRow icon={<ParkingSquare className="size-3.5" />} label="2-wheeler" v="₹50" />
+          <InfoRow icon={<ParkingSquare className="size-3.5" />} label="4-wheeler" v="₹100" />
+          <InfoRow icon={<Signal className="size-3.5" />} label="Network" v="Poor" />
+          <InfoRow icon={<Calendar className="size-3.5" />} label="Best" v="Jun–Feb" />
+        </div>
+      </div>
+
+      {/* Gates */}
+      <div className="rounded-2xl border border-border bg-card p-4">
+        <h3 className="font-display text-base font-semibold">Fort gates</h3>
+        <div className="mt-3 space-y-2.5">
+          <GateRow color="bg-primary" name="Pune Darwaza" tag="Main NE entrance" desc="Massive wooden doors with deep defensive curves." />
+          <GateRow color="bg-destructive" name="Kalyan Darwaza" tag="SE gateway" desc="Historically used for communication with Raigad." />
+        </div>
+      </div>
+
+      {/* Audio tour */}
       <div className="rounded-2xl border border-border bg-card p-4 flex items-center gap-3">
         <div className="size-12 rounded-full bg-accent/15 grid place-items-center text-accent">
           <Headphones className="size-5" />
@@ -145,13 +174,33 @@ function History({ lang }: { lang: "EN" | "मर" }) {
         </h3>
         <p className="text-sm text-muted-foreground mt-3 leading-relaxed">
           {lang === "EN"
-            ? "On a moonless February night, Tanaji Malusare scaled the western cliffs with a monitor lizard rope. He took the fort for Shivaji Maharaj — and lost his life doing so. 'Gad ala pan Sinh gela.'"
-            : "एका अमावास्येच्या रात्री तानाजी मालुसरे यांनी घोरपडीच्या साहाय्याने पश्चिम कडा चढून शिवाजी महाराजांसाठी हा गड जिंकला — पण स्वतःचा जीव गमावला."}
+            ? "On a moonless February night, Tanaji Malusare scaled the western cliffs with a monitor lizard rope. He took the fort for Shivaji Maharaj — and lost his life fighting Udaybhan Rathod. Shivaji renamed Kondhana to Sinhagad in his honour."
+            : "एका अमावास्येच्या रात्री तानाजी मालुसरे यांनी घोरपडीच्या साहाय्याने पश्चिम कडा चढून शिवाजी महाराजांसाठी हा गड जिंकला — पण उदयभान राठोडशी लढताना स्वतःचा जीव गमावला."}
         </p>
-
         <button className="mt-4 inline-flex items-center gap-2 rounded-full bg-accent/15 text-accent px-3 py-1.5 text-xs font-semibold">
           <Headphones className="size-3.5" /> Play 4 min narration
         </button>
+      </div>
+
+      {/* Timeline of rulers */}
+      <div className="rounded-2xl border border-border bg-card p-5">
+        <h3 className="font-display text-base font-semibold mb-3">Who held Kondhana</h3>
+        <ol className="relative space-y-3">
+          {[
+            { era: "Ancient", who: "Yadavas", note: "Original builders. Amruteshwar temple dates to this era." },
+            { era: "14th c.", who: "Bahamani Sultanate", note: "Held briefly during Deccan expansion." },
+            { era: "1670", who: "Marathas", note: "Tanaji's night raid. Renamed Sinhagad." },
+            { era: "1700", who: "Mughals & Marathas", note: "Rajaram Maharaj passed away here during the wars." },
+          ].map((t, i, arr) => (
+            <li key={t.era} className="relative pl-7">
+              {i < arr.length - 1 && <span className="absolute left-[10px] top-5 bottom-[-12px] w-px bg-border" />}
+              <span className="absolute left-0 top-1 size-5 rounded-full bg-primary/15 border border-primary/30 grid place-items-center text-[10px] font-semibold text-primary">{i + 1}</span>
+              <div className="text-[10px] uppercase tracking-wider text-muted-foreground">{t.era}</div>
+              <div className="text-sm font-semibold">{t.who}</div>
+              <div className="text-[11px] text-muted-foreground">{t.note}</div>
+            </li>
+          ))}
+        </ol>
       </div>
 
       <div className="rounded-2xl border border-border bg-card p-5">
@@ -160,34 +209,147 @@ function History({ lang }: { lang: "EN" | "मर" }) {
           A simple stone memorial at the western edge marks where the Subhedar fell. Audio narration triggers when you walk within 20 m.
         </p>
         <div className="mt-3 inline-flex items-center gap-1.5 text-[11px] text-muted-foreground">
-          <MapPin className="size-3" /> 18.3661° N · 73.7551° E
+          <MapPin className="size-3" /> 18.3645° N · 73.7560° E
         </div>
       </div>
     </div>
   );
 }
 
+type Spot = { name: string; type: string; lore?: string; tag?: string; iconKey: "monument" | "view" | "water" | "gate"; potable?: boolean };
+
+const MONUMENTS: Spot[] = [
+  { name: "Tanaji Malusare Samadhi", type: "Memorial", iconKey: "monument", lore: "In 1670, Tanaji left his son's wedding to recapture this fort for Shivaji Maharaj. He died fighting the Rajput commander Udaybhan." },
+  { name: "Rajaram Maharaj Samadhi", type: "Cenotaph", iconKey: "monument", lore: "Chhatrapati Rajaram retreated here during the Mughal-Maratha wars and passed away on the fort in 1700. Architecture shows Rajasthani influence." },
+  { name: "Lokmanya Tilak Bungalow", type: "Heritage retreat", iconKey: "monument", lore: "Tilak's summer retreat. Mahatma Gandhi met him here in 1915 to discuss the freedom struggle." },
+  { name: "Amruteshwar Bhairav Temple", type: "Yadava-era temple", iconKey: "monument", lore: "Predates the Maratha empire. Proves the fort's ancient Yadava origins." },
+  { name: "Darukhana (Armory)", type: "Ruin", iconKey: "monument", lore: "Thick stone walls prevented accidental explosions — the garrison's gunpowder store." },
+];
+
+const VIEWPOINTS: Spot[] = [
+  { name: "Zunjar Buruj", type: "Southern bastion", iconKey: "view", lore: "Spectacular panoramic shots — best at golden hour." },
+  { name: "Kalavantin Buruj", type: "Watchtower", iconKey: "view", lore: "Used historically for surveillance of the Purandar valley." },
+  { name: "Hawa Point", type: "Wind viewpoint", iconKey: "view", lore: "Famous for extreme winds and sweeping valley views." },
+];
+
+const WATER: Spot[] = [
+  { name: "Dev Taake (देव टाके)", type: "Drinking cistern", iconKey: "water", potable: true, lore: "Sweet, crystal-clear, naturally chilled water — the trekker's primary source." },
+  { name: "Hatti Taake", type: "Elephant cistern", iconKey: "water", potable: false, lore: "Massive rock-cut cistern historically used for bathing the garrison's war elephants." },
+];
+
 function Spots() {
-  const items = [
-    { icon: <Eye className="size-4" />, name: "Devtake Point", type: "Viewpoint", time: "15 min", color: "bg-accent/15 text-accent" },
-    { icon: <Eye className="size-4" />, name: "Taramati Peak", type: "Viewpoint", time: "20 min", color: "bg-accent/15 text-accent" },
-    { icon: <DoorOpen className="size-4" />, name: "Pune Darwaza", type: "Entry gate", time: "—", color: "bg-primary/15 text-primary" },
-    { icon: <DoorOpen className="size-4" />, name: "Kalyan Darwaza", type: "Exit gate", time: "—", color: "bg-destructive/15 text-destructive" },
-    { icon: <Droplet className="size-4" />, name: "Dev Tank", type: "Water cistern", time: "5 min", color: "bg-blue-500/15 text-blue-600" },
-    { icon: <Droplet className="size-4" />, name: "Ganesh Tank", type: "Water cistern", time: "5 min", color: "bg-blue-500/15 text-blue-600" },
-  ];
   return (
-    <div className="space-y-2.5">
-      {items.map((i) => (
-        <div key={i.name} className="flex items-center gap-3 rounded-2xl border border-border bg-card p-3.5">
-          <div className={`size-10 rounded-xl grid place-items-center ${i.color}`}>{i.icon}</div>
-          <div className="flex-1">
-            <div className="text-sm font-semibold">{i.name}</div>
-            <div className="text-[11px] text-muted-foreground">{i.type}</div>
-          </div>
-          <div className="text-[11px] text-muted-foreground">{i.time}</div>
+    <div className="space-y-5">
+      <SpotGroup title="Monuments & ruins" items={MONUMENTS} />
+      <SpotGroup title="Bastions & viewpoints" items={VIEWPOINTS} />
+      <SpotGroup title="Water sources" items={WATER} />
+
+      {/* Internal paths */}
+      <div>
+        <h3 className="font-display text-sm font-semibold mb-2 px-1">Inside the fort</h3>
+        <div className="rounded-2xl border border-border bg-card divide-y divide-border">
+          <PathRow from="Pune Darwaza" to="Tanaji Samadhi" desc="Walk straight past the food stalls. The path gently slopes up towards the centre of the plateau." />
+          <PathRow from="Tanaji Samadhi" to="Dev Taake" via="Tilak Bungalow" desc="Take the westward trail. You'll pass the Tilak Bungalow on your right before reaching the cistern." />
         </div>
-      ))}
+      </div>
+    </div>
+  );
+}
+
+function SpotGroup({ title, items }: { title: string; items: Spot[] }) {
+  return (
+    <div>
+      <h3 className="font-display text-sm font-semibold mb-2 px-1">{title}</h3>
+      <div className="space-y-2.5">
+        {items.map((s) => (
+          <div key={s.name} className="rounded-2xl border border-border bg-card p-3.5">
+            <div className="flex items-start gap-3">
+              <div className={`size-10 rounded-xl grid place-items-center shrink-0 ${spotColor(s.iconKey)}`}>
+                {spotIcon(s.iconKey)}
+              </div>
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center gap-2 flex-wrap">
+                  <div className="text-sm font-semibold">{s.name}</div>
+                  {s.potable === true && (
+                    <span className="text-[9px] uppercase tracking-wider px-1.5 py-0.5 rounded bg-blue-500/15 text-blue-600 font-semibold">Potable</span>
+                  )}
+                  {s.potable === false && (
+                    <span className="text-[9px] uppercase tracking-wider px-1.5 py-0.5 rounded bg-secondary text-muted-foreground font-semibold">Non-potable</span>
+                  )}
+                </div>
+                <div className="text-[11px] text-muted-foreground mt-0.5">{s.type}</div>
+                {s.lore && (
+                  <div className="mt-2 flex items-start gap-1.5 text-[11px] text-muted-foreground leading-relaxed">
+                    <BookOpen className="size-3 mt-0.5 text-accent shrink-0" />
+                    <span>{s.lore}</span>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function spotIcon(k: Spot["iconKey"]) {
+  if (k === "monument") return <Landmark className="size-4" />;
+  if (k === "view") return <Eye className="size-4" />;
+  if (k === "water") return <Droplet className="size-4" />;
+  return <DoorOpen className="size-4" />;
+}
+function spotColor(k: Spot["iconKey"]) {
+  if (k === "monument") return "bg-primary/15 text-primary";
+  if (k === "view") return "bg-accent/15 text-accent";
+  if (k === "water") return "bg-blue-500/15 text-blue-600";
+  return "bg-secondary text-foreground";
+}
+
+function PathRow({ from, to, via, desc }: { from: string; to: string; via?: string; desc: string }) {
+  return (
+    <div className="p-3.5">
+      <div className="flex items-center gap-1.5 text-sm font-semibold">
+        <span>{from}</span>
+        <ArrowRight className="size-3.5 text-muted-foreground" />
+        {via && (
+          <>
+            <span className="text-muted-foreground font-normal">{via}</span>
+            <ArrowRight className="size-3.5 text-muted-foreground" />
+          </>
+        )}
+        <span>{to}</span>
+      </div>
+      <p className="text-[11px] text-muted-foreground mt-1 leading-relaxed">{desc}</p>
+    </div>
+  );
+}
+
+function GateRow({ color, name, tag, desc }: { color: string; name: string; tag: string; desc: string }) {
+  return (
+    <div className="flex items-start gap-3">
+      <div className={`size-8 rounded-lg ${color} text-white grid place-items-center shrink-0`}>
+        <DoorOpen className="size-4" />
+      </div>
+      <div className="flex-1 min-w-0">
+        <div className="flex items-center gap-2">
+          <div className="text-sm font-semibold">{name}</div>
+          <span className="text-[10px] uppercase tracking-wider text-muted-foreground">{tag}</span>
+        </div>
+        <div className="text-[11px] text-muted-foreground mt-0.5 leading-relaxed">{desc}</div>
+      </div>
+    </div>
+  );
+}
+
+function InfoRow({ icon, label, v }: { icon: React.ReactNode; label: string; v: string }) {
+  return (
+    <div className="flex items-center gap-2">
+      <div className="size-7 rounded-lg bg-secondary grid place-items-center text-muted-foreground">{icon}</div>
+      <div className="min-w-0">
+        <div className="text-[10px] uppercase tracking-wider text-muted-foreground">{label}</div>
+        <div className="text-xs font-semibold truncate">{v}</div>
+      </div>
     </div>
   );
 }
